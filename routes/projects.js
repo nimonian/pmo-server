@@ -13,9 +13,15 @@ router.get('/:id', async (req, res) => {
   res.json(project)
 })
 
-router.get('/:id/columns', async (req, res) => {
-  const columns = await Project.findColumns(req.params.id)
-  res.json(columns)
+router.put('/lanes/order', async (req, res) => {
+  const lanes = req.body
+  try {
+    await Project.updateLaneOrder(lanes)
+    res.json({ success: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ success: false })
+  }
 })
 
 export default router

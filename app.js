@@ -16,6 +16,5 @@ app.get('/ping', (req, res) => {
 
 app.use('/api', api)
 
-app.listen(process.env.PORT, () =>
-  console.log(`Server listening on ${process.env.PORT}`)
-)
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => console.info(`Server listening on ${PORT}`))
