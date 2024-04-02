@@ -24,4 +24,16 @@ router.put('/lanes/order', async (req, res) => {
   }
 })
 
+router.put('/tasks/order', async (req, res) => {
+  const lanes = req.body
+  console.log(lanes)
+  try {
+    await Project.updateTaskOrder(lanes)
+    res.json({ success: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ success: false })
+  }
+})
+
 export default router

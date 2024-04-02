@@ -75,6 +75,23 @@ class Project {
       await transaction.rollback()
     }
   }
+
+  static async updateTaskOrder(lanes) {
+    const transaction = await db.transaction()
+    try {
+      for (const lane of lanes) {
+        for (const task of lane.tasks) {
+          await transaction('tasks')
+            .where({ id: task.id })
+            .update({ order_index: task.order, lane_id: lane.id })
+        }
+      }
+      await transaction.commit()
+    } catch (err) {
+      console.error(err)
+      await transaction.rollback()
+    }
+  }
 }
 
 export default Project
